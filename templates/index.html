@@ -1,0 +1,150 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+<head>
+    <meta charset="utf-8">
+    <title>Home page</title>
+    <style>
+        body {
+            height: 100vh;
+            width: 100vw;
+            margin: 0;
+            overflow: hidden;
+            background-color: rgba(248, 234, 217, 0.34);
+        }
+
+        .container {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            margin: auto;
+            padding: 20px;
+            border: 2px solid #d6bab2;
+            border-radius: 10px;
+            background: rgba(237, 211, 207, 0.28);
+            height: 70vh;
+            width: 50vw;
+            gap: 30px;
+        }
+
+        .dfimage2 {
+            width: 50%;
+            border: 1px solid black;
+            border-radius: 5%;
+            box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.2);
+        }
+
+        .form-container {
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            width: 40%;
+        }
+
+        .headd {
+            margin-top: 5%;
+            text-align: center;
+            font-family: Ubuntu;
+            font-size: x-large;
+            color: #333;
+        }
+
+        .form-container form {
+            width: 100%;
+            text-align: center;
+        }
+
+        /* Enlarge the text only for 'Upload Image' */
+        .form-container p {
+    font-size: 1.8em; /* Enlarged text */
+    font-weight: bold;
+    color: #333;
+    margin-bottom: 20px; /* Increased gap between 'Upload Image' and 'Choose File' */
+}
+
+.form-container input[type="file"] {
+    font-size: 1em;
+    padding: 8px;
+    margin-bottom: -5px; /* Reduced gap between file input and submit button */
+    border-radius: 5px;
+    border: 1px solid #d6bab2;
+    background-color: #f8f8f8;
+    color: #333;
+}
+
+.form-container input[type="submit"] {
+    background-color: #d3d3d3; /* Lighter grey background */
+    color: black; /* Black text */
+    font-size: 0.9em; /* Slightly smaller button text */
+    border: none;
+    padding: 7px 10px; /* Reduced padding */
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s, color 0.3s;
+}
+
+
+        .form-container input[type="submit"]:hover {
+            background-color: #b0b0b0; /* Slightly darker grey when hovered */
+            color: #fff;
+        }
+
+        .back-link {
+            margin-top: 20px;
+            font-size: medium;
+            color: #2b7a78;
+            text-decoration: none;
+            padding: 8px 12px;
+            border: 1px solid #2b7a78;
+            border-radius: 5px;
+            transition: background 0.3s, color 0.3s;
+        }
+
+        .back-link:hover {
+            background-color: #2b7a78;
+            color: #fff;
+        }
+    </style>
+</head>
+<body>
+    <div class="headd">
+        <h1>DEEPFAKE DETECTION SYSTEM</h1>
+    </div>
+
+    <div class="container">
+        <img class="dfimage2" src="{% static 'img123.jpeg' %}" alt="deepfake-home">
+        <div class="form-container">
+            <form id="uploadForm" enctype="multipart/form-data">
+                {% csrf_token %}
+                <p>Upload Image:</p>
+                <input type="file" id="imageInput" name="image" accept="image/*" required>
+                <br><br>
+                <input type="submit" value="Get Prediction">
+            </form>
+        </div>
+    </div>
+
+    <script>
+        document.getElementById('uploadForm').addEventListener('submit', async (event) => {
+            event.preventDefault();
+            const formData = new FormData();
+            formData.append('image', document.getElementById('imageInput').files[0]);
+
+            const response = await fetch('/upload/', {
+                method: 'POST',
+                body: formData
+            });
+
+            const result = await response.json();
+
+            if (response.ok) {
+                // Redirect to result page with image URL and prediction result
+                window.location.href = `/show_result/?image_url=${encodeURIComponent(result.image_url)}&result=${encodeURIComponent(result.message)}&c_value=${encodeURIComponent(result.c_value)}`;
+            } else {
+                document.getElementById('result').innerText = result.message;
+            }
+        });
+    </script>
+</body>
+</html>

@@ -1,0 +1,343 @@
+{#{% load static %}#}
+{#<!DOCTYPE html>#}
+{#<html lang="en" dir="ltr">#}
+{#<head>#}
+{#    <meta charset="utf-8">#}
+{#    <title>Result page</title>#}
+{#    <style>#}
+{#        body {#}
+{#            height: 100vh;#}
+{#            width: 100vw;#}
+{#            margin: 0;#}
+{#            overflow: hidden;#}
+{#            background-color: rgba(248, 234, 217, 0.34);#}
+{#        }#}
+{##}
+{#        .container {#}
+{#            display: flex;#}
+{#            justify-content: center;#}
+{#            align-items: center;#}
+{#            margin: auto;#}
+{#            padding: 20px;#}
+{#            border: 2px solid #d6bab2;#}
+{#            border-radius: 10px;#}
+{#            background: rgba(237, 211, 207, 0.28);#}
+{#            height: 70vh;#}
+{#            width: 50vw;#}
+{#            gap: 30px;#}
+{#        }#}
+{##}
+{#        .dfimage2 {#}
+{#            margin: 0;#}
+{#            width: 50%;#}
+{#            border: 1px solid black;#}
+{#            border-radius: 5%;#}
+{#        }#}
+{##}
+{#        .form-container {#}
+{#            display: flex;#}
+{#            flex-direction: column;#}
+{#            justify-content: center;#}
+{#            align-items: center;#}
+{#        }#}
+{##}
+{#        .headd {#}
+{#            margin-top: 5%;#}
+{#            text-align: center;#}
+{#            font-family: Ubuntu;#}
+{#            font-size: x-large;#}
+{#        }#}
+{##}
+{#        .result-message {#}
+{#            font-size: large;#}
+{#            font-family: Arial, sans-serif;#}
+{#            text-align: center;#}
+{#            margin-top: 20px;#}
+{#        }#}
+{#    </style>#}
+{#</head>#}
+{#<body>#}
+{#    <div class="headd">#}
+{#        <h1>DEEPFAKE DETECTION SYSTEM</h1>#}
+{#    </div>#}
+{##}
+{#    <div class="container">#}
+{#        <!-- Display the dynamically uploaded image -->#}
+{#        <img class="dfimage2" src="{{ image_url }}" alt="uploaded-deepfake">#}
+{#        #}
+{#        <div class="form-container">#}
+{#            <div class="result-message">#}
+{#                <p>Prediction Result:</p>#}
+{#                <p>{{ result }}</p>#}
+{#            </div>#}
+{#            <div class="result-message">#}
+{#                <p><u>Confidence value</u>: {{ c_value }}</p>#}
+{#                <p</p>#}
+{#            </div>#}
+{#            #}
+{#            <a href="/">Go back to upload another image</a>#}
+{#        </div>#}
+{#    </div>#}
+{#</body>#}
+{#</html>#}
+
+{#{% load static %}#}
+{#<!DOCTYPE html>#}
+{#<html lang="en" dir="ltr">#}
+{#<head>#}
+{#    <meta charset="utf-8">#}
+{#    <title>Result page</title>#}
+{#    <style>#}
+{#        body {#}
+{#            height: 100vh;#}
+{#            width: 100vw;#}
+{#            margin: 0;#}
+{#            overflow: hidden;#}
+{#            background-color: rgba(248, 234, 217, 0.34);#}
+{#        }#}
+{##}
+{#        .container {#}
+{#            display: flex;#}
+{#            justify-content: center;#}
+{#            align-items: center;#}
+{#            margin: auto;#}
+{#            padding: 20px;#}
+{#            border: 2px solid #d6bab2;#}
+{#            border-radius: 10px;#}
+{#            background: rgba(237, 211, 207, 0.28);#}
+{#            height: 70vh;#}
+{#            width: 60vw;#}
+{#            gap: 30px;#}
+{#        }#}
+{##}
+{#        .dfimage2 {#}
+{#            width: 50%;#}
+{#            border: 1px solid black;#}
+{#            border-radius: 5%;#}
+{#            box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.2);#}
+{#        }#}
+{##}
+{#        .form-container {#}
+{#            display: flex;#}
+{#            flex-direction: column;#}
+{#            justify-content: center;#}
+{#            align-items: center;#}
+{#            width: 40%; /* Adjust width to balance layout */#}
+{#        }#}
+{##}
+{#        .headd {#}
+{#            margin-top: 5%;#}
+{#            text-align: center;#}
+{#            font-family: Ubuntu;#}
+{#            font-size: x-large;#}
+{#            color: #333;#}
+{#        }#}
+{##}
+{#        .result-message {#}
+{#            font-size: large;#}
+{#            font-family: Arial, sans-serif;#}
+{#            text-align: center;#}
+{#            margin-top: 20px;#}
+{#            color: #444;#}
+{#        }#}
+{##}
+{#        .confidence-value {#}
+{#            font-size: large;#}
+{#            font-family: Arial, sans-serif;#}
+{#            text-align: center;#}
+{#            margin-top: 10px;#}
+{#            color: #2b7a78;#}
+{#            font-weight: bold;#}
+{#            border: 1px solid #d6bab2;#}
+{#            padding: 10px;#}
+{#            border-radius: 8px;#}
+{#            background: rgba(237, 211, 207, 0.4);#}
+{#            width: 80%;#}
+{#            box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.1);#}
+{#        }#}
+{##}
+{#        .back-link {#}
+{#            margin-top: 20px;#}
+{#            font-size: medium;#}
+{#            color: #2b7a78;#}
+{#            text-decoration: none;#}
+{#            padding: 8px 12px;#}
+{#            border: 1px solid #2b7a78;#}
+{#            border-radius: 5px;#}
+{#            transition: background 0.3s, color 0.3s;#}
+{#        }#}
+{##}
+{#        .back-link:hover {#}
+{#            background-color: #2b7a78;#}
+{#            color: #fff;#}
+{#        }#}
+{#    </style>#}
+{#</head>#}
+{#<body>#}
+{#    <div class="headd">#}
+{#        <h1>DEEPFAKE DETECTION SYSTEM</h1>#}
+{#    </div>#}
+{##}
+{#    <div class="container">#}
+{#        <!-- Display the dynamically uploaded image -->#}
+{#        <img class="dfimage2" src="{{ image_url }}" alt="uploaded-deepfake">#}
+{#        #}
+{#        <div class="form-container">#}
+{#            <div class="result-message">#}
+{#                <p>Prediction Result:</p>#}
+{#                <p>{{ result }}</p>#}
+{#            </div>#}
+{#            <div class="confidence-value">#}
+{#                <p>Confidence Value: {{ c_value }}</p>#}
+{#            </div>#}
+{#            #}
+{#            <a href="/" class="back-link">Go back to upload another image</a>#}
+{#        </div>#}
+{#    </div>#}
+{#</body>#}
+{#</html>#}
+
+
+{% load static %}
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+<head>
+    <meta charset="utf-8">
+    <title>Result page</title>
+    <style>
+        body {
+            height: 100vh;
+            width: 100vw;
+            margin: 0;
+            overflow: hidden;
+            background-color: rgba(248, 234, 217, 0.34);
+        }
+
+        .container {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            margin: auto;
+            padding: 20px;
+            border: 2px solid #d6bab2;
+            border-radius: 10px;
+            background: rgba(237, 211, 207, 0.28);
+            height: 70vh;
+            width: 60vw;
+            gap: 30px;
+        }
+
+        .dfimage2 {
+            width: 50%;
+            border: 1px solid black;
+            border-radius: 5%;
+            box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.2);
+        }
+
+        .form-container {
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            width: 40%;
+        }
+
+        .headd {
+            margin-top: 5%;
+            text-align: center;
+            font-family: Ubuntu;
+            font-size: x-large;
+            color: #333;
+        }
+
+        .result-message {
+            font-size: large;
+            font-family: Arial, sans-serif;
+            text-align: center;
+            color: #444;
+        }
+
+        .result-label {
+            font-weight: bold;
+            font-size: 1.2em;
+            color: #2b7a78;
+            margin-bottom: 10px;
+        }
+
+        .result-value {
+            font-size: 1.5em;
+            font-weight: bold;
+            display: inline;
+        }
+
+        .deepfake {
+            color: red;
+            font-weight: bold;
+        }
+
+        .real {
+            color: green;
+            font-weight: bold;
+        }
+
+        .confidence-value {
+            font-size: large;
+            font-family: Arial, sans-serif;
+            text-align: center;
+            margin-top: 10px;
+            color: #2b7a78;
+            font-weight: bold;
+            border: 1px solid #d6bab2;
+            padding: 10px;
+            border-radius: 8px;
+            background: rgba(237, 211, 207, 0.4);
+            width: 80%;
+            box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.1);
+        }
+
+        .back-link {
+            margin-top: 20px;
+            font-size: medium;
+            color: #2b7a78;
+            text-decoration: none;
+            padding: 8px 12px;
+            border: 1px solid #2b7a78;
+            border-radius: 5px;
+            transition: background 0.3s, color 0.3s;
+        }
+
+        .back-link:hover {
+            background-color: #2b7a78;
+            color: #fff;
+        }
+    </style>
+</head>
+<body>
+    <div class="headd">
+        <h1>DEEPFAKE DETECTION SYSTEM</h1>
+    </div>
+
+    <div class="container">
+        <!-- Display the dynamically uploaded image -->
+        <img class="dfimage2" src="{{ image_url }}" alt="uploaded-deepfake">
+        
+        <div class="form-container">
+            <div class="result-message">
+                <p class="result-label"><u>PREDICTION RESULT</u> :</p>
+                <p class="result-value">
+                    {% if 'deepfake' in result|lower %}
+                        This image is classified as <span class="deepfake">DEEPFAKE</span>
+                    {% else %}
+                        This image is classified as <span class="real">REAL</span>
+                    {% endif %}
+                </p>
+            </div>
+            <div class="confidence-value">
+                <p>Confidence Value: {{ c_value }}</p>
+            </div>
+            
+            <a href="/" class="back-link">Go back to upload another image</a>
+        </div>
+    </div>
+</body>
+</html>
