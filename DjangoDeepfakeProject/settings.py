@@ -135,9 +135,3 @@ MEDIA_ROOT =  os.path.join(BASE_DIR, 'media')
 # https://docs.djangoproject.com/en/5.1/ref/settings/#default-auto-field
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
-
-
-# AWS_ACCESS_KEY_ID = 'AKIAW3MEFWBFKEUOQRW7'
-# AWS_SECRET_ACCESS_KEY = '0XKsJLgOoY+PBq+wZ9SKKvEKFN7vYChqnFVsHzjb'
-# AWS_STORAGE_BUCKET_NAME = 'test-bucketdf-123'
-# AWS_S3_REGION_NAME = 'us-east-1'  # e.g., 'us-west-1'
